@@ -13,7 +13,7 @@ class Cyclist (
     var image: ImageView? = null
     var posicioActual: Float = 0f
 
-    suspend fun run() = GlobalScope.launch {
+    suspend fun run() {
         posicioActual = image!!.y
 
         while(posicioActual < meta)

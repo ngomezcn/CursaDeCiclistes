@@ -30,11 +30,17 @@ class MainActivity : AppCompatActivity() {
         binding.runButton.setOnClickListener {
             binding.chronometer.start()
 
-            CoroutineScope(Dispatchers.Default).launch {
-                job1 = cycRojo.run()
-                job2 = cycNegro.run()
-                job3 = cycVerde.run()
-            }
+                job1 = CoroutineScope(Dispatchers.Default).launch {
+                    cycRojo.run()
+                }
+
+                job2 = CoroutineScope(Dispatchers.Default).launch {
+                    cycNegro.run()
+                }
+
+                job3 = CoroutineScope(Dispatchers.Default).launch {
+                    cycVerde.run()
+                }
 
             binding.stopButton.isEnabled = true;
             binding.runButton.isEnabled = false;
@@ -42,20 +48,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.stopButton.setOnClickListener {
             binding.chronometer.stop()
-
-            CoroutineScope(Dispatchers.Default).launch {
-                job1.cancel();
-                job1.join();
-
-                job2.cancel();
-                job2.join();
-
-                job3.cancel();
-                job3.join();
-            }
-
             binding.stopButton.isEnabled = false;
-            binding.runButton.isEnabled = true;
+
+            job1.cancel();
+
+            job2.cancel();
+
+            job3.cancel();
+
         }
     }
 }
